@@ -3,6 +3,8 @@ const app = express();
 const dotenv = require('dotenv');
 const { default:mongoose } = require('mongoose');
 const userRouter=require('./Routes/userRoutes')
+const chatRouter=require('./Routes/chatRoutes')
+const messageRouter=require('./Routes/messageRouter')
 const cors=require('cors')
 app.use(cors())
 app.use(express.json())
@@ -21,9 +23,8 @@ const connectDb=async ()=>{
 }
 connectDb()
 app.use('/user',userRouter)
-app.get("/", (req, res) => {
-    res.json({ name: "THAHIR" })
-})
+app.use('/chat',chatRouter)
+app.use('/message',messageRouter)
 
 
 
