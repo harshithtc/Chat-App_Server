@@ -147,8 +147,10 @@ const groupExit=asyncHandler(async(req,res)=>{
 
 
 const addSelfToGroup=asyncHandler(async(req,res)=>{
+       
         const {chatId,userId}=req.body
-        const added=await Chat.findByIdAndUpdate({chatId},
+        console.log(chatId,userId)
+        const added=await Chat.findByIdAndUpdate(chatId,
             {
                 $push:{users:userId}
             },
