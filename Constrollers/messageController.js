@@ -3,13 +3,13 @@ const Message=require('../Modals/messageModel')
 const User=require('../Modals/userModel')
 const Chat =require('../Modals/chatModel')
 const allMesages=asyncHandler(async(req,res)=>{
+    console.log("all message")
     try{
             let messages=await Message.find({chat:req.params.chatId})
             .populate('sender','name email')
             .populate('reciever')
             .populate('chat')
             res.json(messages)
-            console.log(messages);
     }
     catch(err){
         res.status(400)
@@ -18,6 +18,7 @@ const allMesages=asyncHandler(async(req,res)=>{
 });
 
 const sendMessages=asyncHandler(async(req,res)=>{
+    console.log("Send message")
     const {content,chatId}=req.body
     if(!content || !chatId){
        return res.status(400)
