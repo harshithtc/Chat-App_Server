@@ -1,7 +1,8 @@
 const asyncHandler=require('express-async-handler')
 const Message=require('../Modals/messageModel')
 const User=require('../Modals/userModel')
-const Chat =require('../Modals/chatModel')
+const Chat =require('../Modals/chatModel');
+const { response } = require('express');
 const allMesages=asyncHandler(async(req,res)=>{
     console.log("all message")
     try{
@@ -49,7 +50,19 @@ const sendMessages=asyncHandler(async(req,res)=>{
 
 })
 
+const deleteMessages=asyncHandler(async(req,res)=>{
+    console.log("delete message called")
+    Message.deleteMany({chat:req.body.chatId}).then((response)=>{
+        res.send("Deleted all messages in this chat!")
+    }).catch((err)=>{
+        res.status(400)
+        return new Error("Error occured")
+    })
+    
+})
+
 module.exports={
     allMesages,
-    sendMessages
+    sendMessages,
+    deleteMessages,
 }

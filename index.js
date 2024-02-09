@@ -51,14 +51,15 @@ io.on("connection", (socket) => {
     socket.join(room)
   })
 
-  socket.on("new message", (newMessageStatus) => {
-    var chat = newMessageStatus.chat;
+  socket.on("new message", (newMessage) => {
+    var chat = newMessage.chat;
     if (!chat.users) {
       return console.log("Chat.users not defined")
     }
     console.log("new message called")
     chat.users.forEach((user) => {
-      socket.in(user._id).emit("message recieved", newMessageStatus)
+      if(user._id==newMessage.sender._id) return
+      socket.in(user._id).emit("message recieved", newMessage)
     })
   })
 
