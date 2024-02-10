@@ -23,6 +23,9 @@ const connectDb = async () => {
 
 }
 connectDb()
+app.use('/',(req,res)=>{
+  res.send("Welcome to the server!")
+})
 app.use('/user', userRouter)
 app.use('/chat', chatRouter)
 app.use('/message', messageRouter)
