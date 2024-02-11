@@ -75,8 +75,17 @@ const fetchAllUsersController = expressAsyncHandler(async (req, res) => {
     console.log(users)
 
 })
+
+const searchUser=expressAsyncHandler(async(req,res)=>{
+    const text=req.params.searchText
+    console.log("Search called" ,text)
+    const users=await userModel.find({name:{$regex:name,$options:'i'}}).select('-password')
+    res.json(users)
+})
+
 module.exports = {
     loginController,
     registerController,
     fetchAllUsersController,
+    searchUser
 }
